@@ -1,23 +1,53 @@
 <link rel="import" type="" href="bower_components/polymer/polymer.html">
-
+<link rel="import" href="bower_components/iron-icons/maps-icons.html">
 
 <dom-module id="hello-world">
     <style>
-        h1 {
-            color: yellow;
+        /* local styles go here */
+        
+         :host {
+            display: inline-block;
+        }
+        
+        iron-icon {
+            fill: rgba(0, 0, 0, 0);
+            stroke: currentcolor;
+        }
+        
+         :host([pressed]) iron-icon {
+            fill: red;
         }
     </style>
     <template>
        <fieldset>
-           <legend>CONTACT US</legend>
-            <input type="text" placeholder="name" name="" value="">
+           <legend>[[userName]]</legend>
+           <iron-icon icon="maps:directions-bus"></iron-icon>
+           <iron-icon icon="[[toggleIcon]]"></iron-icon>
+            <input type="text" placeholder="name" name="" value="">input
+
        </fieldset>
   </template>
 
 
     <script>
         Polymer({
-            is: 'hello-world'
+            is: 'hello-world',
+            properties: {
+                toggleIcon: String,
+                pressed: {
+                    type: Boolean,
+                    value: false,
+                    notify: true,
+                    reflectToAttribute: true
+                }
+            },
+            listeners: {
+                'tap': 'toggle'
+            },
+            toggle: function() {
+                console.log('toggle clicked')
+                this.pressed = !this.pressed;
+            }
         })
     </script>
 </dom-module>
